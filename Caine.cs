@@ -9,23 +9,23 @@ namespace teorieIncapsulare
     internal class Caine
     {
         private string nume;
-        private string gen;     //M/F
-        private int varsta;     //ani
-        private int inaltime;   //cm
-        private double greutate;    //kg
+        private string gen;
+        private int varsta;
+        private int inaltime;
+        private double greutate;   
         private string rasa;
         private string culoareBlana;
         private bool pedigree;
 
         public Caine()
         {
-            nume = "";
-            gen = "";
+            nume = "Necunoscut";
+            gen = "Necunoscut";
             varsta = 0;
             inaltime = 0;
             greutate = 0;
-            rasa = "";
-            culoareBlana = "";
+            rasa = "Necunoscut";
+            culoareBlana = "Necunoscut";
             pedigree = false;
         }
         public Caine(string nume, string gen, int varsta, int inaltime, double greutate, string rasa, string culoareBlana, bool Pedigree)
@@ -45,15 +45,28 @@ namespace teorieIncapsulare
             get { return nume; }
             set
             {
-                if (value.Length == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Campul <nume> nu poate fi empty");
                 }
-                for (int i = 0; i < value.Length; i++) {
-                    if (!char.IsLetter(value[i])) {
-                        throw new ArgumentException("Campul <nume> poate contine numai litere");
+
+                value = value.Trim();
+
+                if(value.Length < 2 || value.Length > 30)
+                {
+                    throw new ArgumentException("Numele trebuie sa aiba intre 2 si 30 de caractere");
+                }
+
+                foreach (char caracter in value)
+                {
+                    bool caracterPermis = char.IsLetter(caracter) || caracter == ' ' || caracter == '-';
+
+                    if (!caracterPermis)
+                    {
+                        throw new ArgumentException("Numele contine caractere nepermise");
                     }
                 }
+
                 nume = value;
             }
         }
@@ -63,14 +76,16 @@ namespace teorieIncapsulare
             get { return gen; }
             set
             {
-                if(value.Length == 0)
+                if(string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Campul <gen> nu poate fi empty");
+                    throw new ArgumentException("Genul nu poate fi gol");
                 }
+
                 if(value != "masculin" && value != "feminin")
                 {
                     throw new ArgumentException("Gen necunoscut");
                 }
+
                 gen = value;
             }
         }
@@ -78,15 +93,13 @@ namespace teorieIncapsulare
         public int Varsta
         {
             get { return varsta; }
-            set { 
-                if(value < 0)
+            set
+            {
+                if (value < 0 || value > 20)
                 {
-                    throw new ArgumentException("Varsta nu poate fi negativa");
+                    throw new ArgumentException("Varsta trebuie sa fie intre 1 si 20 de ani");
                 }
-                if(value > 20)
-                {
-                    throw new ArgumentException("Varsta este prea mare");
-                }
+
                 varsta = value;
             }
         }
@@ -96,14 +109,11 @@ namespace teorieIncapsulare
             get { return inaltime; }
             set
             {
-                if(value < 10)
+                if(value < 10 || value > 150)
                 {
-                    throw new ArgumentException("Inaltimea este prea mica");
+                    throw new ArgumentException("Inaltimea trebuie sa fie intre 10 si 150 de centimetri");
                 }
-                if(value > 150)
-                {
-                    throw new ArgumentException("Inaltimea este prea mare");
-                }
+
                 inaltime = value;
             }
         }
@@ -113,10 +123,16 @@ namespace teorieIncapsulare
             get { return greutate; }
             set
             {
-                if(value < 0)
+                if(value <= 0)
                 {
-                    throw new ArgumentException("Greutatea nu poate fi negativa");
+                    throw new ArgumentException("Greutatea trebuie sa fie mai mare decat 0 de kilograme");
                 }
+                
+                if(value > 150)
+                {
+                    throw new ArgumentException("Greutatea trebuie sa fie mai mica decat 150 de kilograme");
+                }
+
                 greutate = value;
             }
         }
@@ -125,17 +141,28 @@ namespace teorieIncapsulare
         {
             get { return rasa; }
             set {
-                if (value.Length == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Campul <rasa> nu poate fi empty");
+                    throw new ArgumentException("Rasa nu poate fi goala");
                 }
-                for (int i = 0; i < value.Length; i++)
+                
+                value = value.Trim();
+
+                if (value.Length < 2 || value.Length > 30)
                 {
-                    if (!char.IsLetter(value[i]) && value[i] != ' ')
+                    throw new ArgumentException("Rasa trebuie sa contina intre 2 si 30 de caractere");
+                }
+
+                foreach (char caracter in value)
+                {
+                    bool caracterePermise = char.IsLetter(caracter) || caracter == ' ' || caracter == '-';
+
+                    if (!caracterePermise)
                     {
-                        throw new ArgumentException("Campul <rasa> poate contine numai litere");
+                        throw new ArgumentException("Rasa contine caractere nepermise");
                     }
                 }
+
                 rasa = value;
             }
         }
@@ -145,17 +172,21 @@ namespace teorieIncapsulare
             get { return culoareBlana; }
             set
             {
-                if (value.Length == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Campul <culoare blana> nu poate fi empty");
+                    throw new ArgumentException("Culoarea blanii nu poate fi goala");
                 }
-                for (int i = 0; i < value.Length; i++)
+
+                if (value.Length < 2 || value.Length > 30)
                 {
-                    if (!char.IsLetter(value[i]))
-                    {
-                        throw new ArgumentException("Campul <culoare blana> poate contine numai litere");
-                    }
+                    throw new ArgumentException("Culoarea blanii trebuie sa contina intre 2 si 30 de caractere");
                 }
+
+                foreach (char caracter in value)
+                {
+                    bool caracterPermis = char.IsLetter(caracter) || caracter == ' ' || caracter == '-';
+                }
+
                 culoareBlana = value;
             }
         }
