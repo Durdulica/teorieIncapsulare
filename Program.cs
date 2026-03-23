@@ -4,37 +4,17 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        MasinaService masinaService = new MasinaService();
 
-        masinaService.AfiseazaToateMasinile();
-        masinaService.AfiseazaExercitii();
+        //Masina m1 = new Masina("BMW","M3",2007,"benzina",5600,156132,"negru");
+        //Masina m2 = new Masina("Skoda", "Yeti", 2013, "diesel", 5340, 134670, "visiniu");
+        //Masina m3 = new Masina("Honda", "CRV", 2020, "benzina", 28000, 76000, "visiniu");
+        //Masina m4 = new Masina("Dacia", "Logan", 2004, "GPL", 1500, 300000, "gri");
+        //Masina m5 = new Masina("Volvo", "XC60", 2015, "benzina",11000, 187000, "negru");
 
-        Console.WriteLine();
-        Console.WriteLine("Exemplu validare obiect:");
 
-        try
-        {
-<<<<<<< HEAD
-            Caine x = new Caine("Pheoby", "masculin", 6, 30, 7, "Shi Tzu", "tarcat", false);
-            x.AfisareDetalii();
-        }
-        catch (ArgumentException ex) { 
-            Console.WriteLine(ex.Message);
-        }
+        MasinaService service = new MasinaService();
 
-        
-=======
-            Masina masinaValida = new Masina("BMW", "M4", 2020, 480, 1725, "gri");
-            Console.WriteLine(
-                $"Masina valida: {masinaValida.Marca} {masinaValida.Model}, {masinaValida.AnFabricare}");
-
-            Masina masinaInvalida = new Masina("B", "M4", 2020, 20, 300, "gri1");
-            Console.WriteLine(masinaInvalida.Model);
-        }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine($"Eroare: {ex.Message}");
-        }
->>>>>>> 46b1dd23dadcafb9654c692632ad8de7f7a8a2cb
+        service.GrupareCuloare();
+        service.AfisareCntCulori(); 
     }
 }

@@ -8,13 +8,13 @@ namespace teorieIncapsulare
 {
     internal class MasinaNoua
     {
-        private string marca;
-        private string model;
+        private string marca = string.Empty;
+        private string model = string.Empty;
         private int anFabricatie;
-        private string combustibil; //    benzina/diesel
+        private string combustibil = string.Empty;
         private double pret;
         private int kilometri;
-        private string culoare;
+        private string culoare = string.Empty;
 
         public MasinaNoua(string marca, string model, int anFabricatie, string combustibil, double pret, int kilometri, string culoare)
         {

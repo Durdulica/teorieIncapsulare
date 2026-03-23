@@ -56,5 +56,257 @@ namespace teorieIncapsulare
         {
             return masini;
         }
+
+        public void AfiseazaMasiniPeste200CP()
+        {
+            foreach(Masina m in masini)
+            {
+                if(m.CaiPutere > 200)
+                {
+                    Console.WriteLine($"{m.Marca}, {m.Model}, an {m.AnFabricare}, {m.CaiPutere} CP, {m.Greutate} kg, {m.Culoare}");
+                }
+            }
+        }
+
+        public void AfiseazaMasiniFabricateDupa2019()
+        {
+            foreach(Masina m in masini)
+            {
+                if(m.AnFabricare > 2019)
+                {
+                    Console.WriteLine($"{m.Marca}, {m.Model}, an {m.AnFabricare}, {m.CaiPutere} CP, {m.Greutate} kg, {m.Culoare}");
+                }
+            }
+        }
+
+        public int SumaCaiPutere()
+        {
+            int suma = 0;
+            foreach(Masina m in masini)
+            {
+                suma += m.CaiPutere;
+            }
+            return suma;
+        }
+
+        public double GreutateaMedie()
+        {
+            int suma = 0;
+            foreach(Masina m in masini)
+            {
+                suma += m.Greutate;
+            }
+
+            return (double)suma / masini.Count;
+        }
+
+        public Masina MaxCaiPutere()
+        {
+            int maxim = int.MinValue;
+            Masina aux = new Masina();
+
+            foreach (Masina m in masini)
+            {
+                if (m.CaiPutere > maxim)
+                {
+                    maxim = m.CaiPutere;
+                    aux = m;
+                }
+            }
+
+            return aux;
+        }
+
+        public Masina CeaMaiVeche()
+        {
+            int minim = int.MaxValue;
+            Masina aux = new Masina();
+
+            foreach (Masina m in masini)
+            {
+                if (m.AnFabricare < minim)
+                {
+                    minim = m.AnFabricare;
+                    aux = m;
+                }
+            }
+
+            return aux;
+        }
+
+        public int CtMasiniGri()
+        {
+            int index = 0;
+            foreach(Masina m in masini)
+            {
+                if(m.Culoare.ToLower() == "gri")
+                {
+                    index++;
+                }
+            }
+            return index;
+        }
+
+        public void AfisareMarci()
+        {
+            string rez = string.Empty;
+
+            foreach (Masina m in masini)
+            {
+                if (!rez.Contains(m.Marca))
+                {
+                    rez += m.Marca + " ";
+                }
+            }
+
+            rez = rez.TrimEnd();
+            Console.WriteLine(rez);
+        }
+
+        public void SortareCrescAnFabricare()
+        {
+            for (int i = 0; i < masini.Count; i++) {
+                for (int j = i + 1; j < masini.Count; j++)
+                {
+                    if (masini[j].AnFabricare < masini[i].AnFabricare)
+                    {
+                        Masina aux = masini[i];
+                        masini[i] = masini[j];
+                        masini[j] = aux;
+                    }
+                }
+            }
+        }
+
+        public void SortareDescrescCaiPutere()
+        {
+            for (int i = 0; i < masini.Count; i++)
+            {
+                for (int j = i + 1; j < masini.Count; j++)
+                {
+                    if (masini[j].CaiPutere > masini[i].CaiPutere)
+                    {
+                        Masina aux = masini[i];
+                        masini[i] = masini[j];
+                        masini[j] = aux;
+                    }
+                }
+            }
+        }
+
+        public bool ExistaMasinaPeste400CP()
+        {
+            foreach(Masina m in masini)
+            {
+                if(m.CaiPutere > 400)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool ToatePeste1000kg()
+        {
+            foreach(Masina m in masini)
+            {
+                if(m.Greutate <= 1000)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public List<Masina> nouaListaAlbSiGri()
+        {
+            List<Masina> rez = new List<Masina>();
+
+            foreach (Masina m in masini)
+            {
+                if (m.Culoare.ToLower() == "gri" || m.Culoare.ToLower() == "alb")
+                {
+                    rez.Add(m);
+                }
+            }
+
+            return rez;
+        }
+
+        public void AfisarePrimulGolf()
+        {
+            foreach(Masina m in masini)
+            {
+                if(m.Model.ToLower() == "golf")
+                {
+                    Console.WriteLine($"{m.Marca}, {m.Model}, an {m.AnFabricare}, {m.CaiPutere} CP, {m.Greutate} kg, {m.Culoare}");
+                    return;
+                }
+            }
+            Console.WriteLine("Nu este niciul model Golf in service");
+        }
+
+        public void GrupareCuloare()
+        {
+            for (int i = 0; i < masini.Count; i++)
+            {
+                for (int j = i + 1; j < masini.Count; j++)
+                {
+                    if (masini[i].Culoare.CompareTo(masini[i + 1].Culoare) > 0)
+                    {
+                        Masina aux = masini[i];
+                        masini[i] = masini[j];
+                        masini[j] = aux;
+                    }
+                }
+            }
+        }
+
+        public void AfisareCntCulori()
+        {
+            for(int i = 0; i < masini.Count; i++)
+            {
+                Console.Write(masini[i].Culoare + " ");
+                int ct = 1;
+                if (i < masini.Count - 1)
+                {
+                    while (masini[i].Culoare.CompareTo(masini[i + 1].Culoare) == 0)
+                    {
+                        i++;
+                        ct++;
+                    }
+                }
+                Console.WriteLine(ct);
+            }
+        }
+
+        public void AdaugareMasina(string marca, string model, int anFabricare, int caiPutere, int greutate, string culoare)
+        {
+            if(masini.Count + 1 > masini.Capacity)
+            {
+                throw new ArgumentException("Service plin");
+            }
+
+            foreach (Masina m in masini) {
+                if (m.Marca.ToLower() == marca.ToLower() && m.Model.ToLower() == model.ToLower()) { 
+                    throw new ArgumentException("Aceasta masina se afla deja in service");
+                }
+            }
+
+            Masina newCar = new Masina(marca, model, anFabricare, caiPutere, greutate, culoare);
+
+            masini.Add(newCar);
+        }
+
+        public void StergereMasina(string marca, string model)
+        {
+            for(int i = 0; i < masini.Count; i++)
+            {
+                if (masini[i].Marca.CompareTo(marca) == 0 && masini[i].Model.CompareTo(model) == 0)
+                {
+                    masini.RemoveAt(i);
+                }
+            }
+        }
     }
 }
