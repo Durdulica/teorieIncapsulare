@@ -50,11 +50,13 @@ internal class Program
 
         try
         {
-            Masina x = new Masina("BMW", "", 2000, 150, 1245, "gri");
+            Caine x = new Caine("Pheoby", "masculin", 6, 30, 7, "Shi Tzu", "tarcat", false);
+            x.AfisareDetalii();
         }
-        catch(ArgumentException ex) { 
+        catch (ArgumentException ex) { 
             Console.WriteLine(ex.Message);
         }
+
         
     }
 }
