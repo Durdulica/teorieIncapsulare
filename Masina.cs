@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-//todo:Constructori
-// este o metoda ce se apeleaza automat la instantiere
-// se poate supraincarca
-//nu are tip returnat 
-//are acelasi nume ca si clasa
-// daca nu definim un constructor csharp "ne doneaza" unul automat
 namespace teorieIncapsulare
 {
     public class Masina
     {
-        private string marca;
-        private string model;
+        private string marca = string.Empty;
+        private string model = string.Empty;
         private int anFabricare;
         private int caiPutere;
         private int greutate;
-        private string culoare;
-
+        private string culoare = string.Empty;
 
         public Masina()
         {
-            Console.WriteLine("constructor fara parametrii");
+            marca = "Necunoscuta";
+            model = "Necunoscut";
+            culoare = "Necunoscuta";
+            Console.WriteLine("constructor fara parametri");
         }
 
         public Masina(string marca, string model, int anFabricare, int caiPutere, int greutate, string culoare)
@@ -39,16 +29,32 @@ namespace teorieIncapsulare
 
         public string Marca
         {
-            get { return marca; } set
+            get { return marca; }
+            set
             {
-
-                bool isEmpty = value.Length == 0;
-
-                if (isEmpty)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Marca nu poate fi empty");
+                    throw new ArgumentException("Marca nu poate fi goala");
                 }
-                marca = value;
+
+                string text = value.Trim();
+
+                if (text.Length < 2 || text.Length > 30)
+                {
+                    throw new ArgumentException("Marca trebuie sa aiba intre 2 si 30 caractere");
+                }
+
+                foreach (char caracter in text)
+                {
+                    bool caracterPermis = char.IsLetter(caracter) || caracter == ' ' || caracter == '-';
+
+                    if (!caracterPermis)
+                    {
+                        throw new ArgumentException("Marca contine caractere nepermise");
+                    }
+                }
+
+                marca = text;
             }
         }
 
@@ -57,13 +63,29 @@ namespace teorieIncapsulare
             get { return model; }
             set
             {
-                bool isEmpty = value.Length == 0;
-
-                if (isEmpty)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Modelul nu poate fi empty");
+                    throw new ArgumentException("Modelul nu poate fi gol");
                 }
-                model = value;
+
+                string text = value.Trim();
+
+                if (text.Length < 1 || text.Length > 40)
+                {
+                    throw new ArgumentException("Modelul trebuie sa aiba intre 1 si 40 caractere");
+                }
+
+                foreach (char caracter in text)
+                {
+                    bool caracterPermis = char.IsLetterOrDigit(caracter) || caracter == ' ' || caracter == '-' || caracter == '.';
+
+                    if (!caracterPermis)
+                    {
+                        throw new ArgumentException("Modelul contine caractere nepermise");
+                    }
+                }
+
+                model = text;
             }
         }
 
@@ -72,10 +94,16 @@ namespace teorieIncapsulare
             get { return anFabricare; }
             set
             {
-                if (value < 0 || value > 2026)
+                if (value < 1886 || value > DateTime.Now.Year)
                 {
                     throw new ArgumentException("Anul fabricarii nu este corect");
                 }
+
+                if (value < 1950)
+                {
+                    throw new ArgumentException("Anul fabricarii este prea mic pentru acest exemplu");
+                }
+
                 anFabricare = value;
             }
         }
@@ -85,10 +113,16 @@ namespace teorieIncapsulare
             get { return caiPutere; }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentException("Puterea nu poate fi negativa");
+                    throw new ArgumentException("Puterea trebuie sa fie mai mare decat 0");
                 }
+
+                if (value < 40 || value > 2000)
+                {
+                    throw new ArgumentException("Puterea trebuie sa fie intre 40 si 2000 CP");
+                }
+
                 caiPutere = value;
             }
         }
@@ -98,10 +132,16 @@ namespace teorieIncapsulare
             get { return greutate; }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentException("Greutatea nu poate fi negativa");
+                    throw new ArgumentException("Greutatea trebuie sa fie mai mare decat 0");
                 }
+
+                if (value < 500 || value > 4000)
+                {
+                    throw new ArgumentException("Greutatea trebuie sa fie intre 500 si 4000 kg");
+                }
+
                 greutate = value;
             }
         }
@@ -111,14 +151,30 @@ namespace teorieIncapsulare
             get { return culoare; }
             set
             {
-                if (value.Length == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Culoarea nu poate fi empty");
+                    throw new ArgumentException("Culoarea nu poate fi goala");
                 }
-                culoare = value;
+
+                string text = value.Trim();
+
+                if (text.Length < 3 || text.Length > 20)
+                {
+                    throw new ArgumentException("Culoarea trebuie sa aiba intre 3 si 20 caractere");
+                }
+
+                foreach (char caracter in text)
+                {
+                    bool caracterPermis = char.IsLetter(caracter) || caracter == ' ' || caracter == '-';
+
+                    if (!caracterPermis)
+                    {
+                        throw new ArgumentException("Culoarea contine caractere nepermise");
+                    }
+                }
+
+                culoare = text;
             }
         }
-
-
     }
 }
