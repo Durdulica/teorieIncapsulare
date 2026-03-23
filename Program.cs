@@ -4,6 +4,14 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        MasinaService masinaService = new MasinaService();
+
+        masinaService.AfiseazaToateMasinile();
+        masinaService.AfiseazaExercitii();
+
+        Console.WriteLine();
+        Console.WriteLine("Exemplu validare obiect:");
+
         try
         {
             Masina masinaValida = new Masina("BMW", "M4", 2020, 480, 1725, "gri");
